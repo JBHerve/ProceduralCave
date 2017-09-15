@@ -2,9 +2,9 @@
 #include <ctime>
 
 Automata::Automata(int _size)
+	: m_size(_size)
 {
 	srand(time(0));
-	m_size = _size;
 	m_cells = std::vector<std::vector<Cell>>(_size);
 	for (size_t i = 0; i < _size; i++)
 	{

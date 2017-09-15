@@ -5,5 +5,5 @@
 
 Cell::Cell()
 {
-	m_state = ((std::rand() % (100 + 1)) > 45);
+	m_state = std::rand() % 101 > 45;
 }
