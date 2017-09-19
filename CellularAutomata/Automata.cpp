@@ -23,7 +23,7 @@ void Automata::update()
 		{
 			for (int j = 0; j < m_size; j++)
 			{
-				int count = 9 - (tmp[i][j].getState() ? 1 : 0);
+				int count = 9;
 				for (Cell cell : GetCellsInRange(1, i, j))
 				{
 					if (cell.getState())
@@ -40,7 +40,7 @@ void Automata::update()
 
 				if (call < 4 && count < 5)
 				{
-					count += 8;
+					count = 25;
 					for (Cell cell : GetCellsInRange(2, i, j))
 					{
 						if (cell.getState())
@@ -60,47 +60,19 @@ void Automata::update()
 	}
 }
 
-std::vector<Cell> Automata::GetCellsInRange(int _range, int _column, int _line)
+std::vector<Cell> Automata::GetCellsInRange(int _range, int _column, int _row)
 {
 	std::vector<Cell> closeCellular = std::vector<Cell>();
 
-	
-	if (_column > _range - 1)
+	for (size_t i = _column - _range; i <= _column + _range; i++)
 	{
-		closeCellular.push_back(m_cells[_column - _range][_line]);
-
-		if (_line > _range - 1)
+		for (size_t j = _row - _range; j <= _row + _range; j++)
 		{
-			closeCellular.push_back(m_cells[_column - _range][_line - _range]);
+			if (i >= 0 && j >= 0 && i < m_size && j < m_size)
+			{
+				closeCellular.push_back(m_cells[i][j]);
+			}
 		}
-		if (_line + _range < m_size)
-		{
-			closeCellular.push_back(m_cells[_column - _range][_line + _range]);
-		}
-	}
-
-	if (_line > _range - 1)
-	{
-		closeCellular.push_back(m_cells[_column][_line - _range]);
-
-		if (_column + 2 < m_size)
-		{
-			closeCellular.push_back(m_cells[_column + _range][_line - _range]);
-		}
-	}
-
-	if (_column + _range < m_size)
-	{
-		closeCellular.push_back(m_cells[_column + _range][_line]);
-
-		if (_line + _range < m_size)
-		{
-			closeCellular.push_back(m_cells[_column + _range][_line + _range]);
-		}
-	}
-	if (_line + _range < m_size)
-	{
-		closeCellular.push_back(m_cells[_column][_line + _range]);
 	}
 
 	return closeCellular;
