@@ -14,7 +14,6 @@ Automata::Automata(int _size)
 
 void Automata::update()
 {
-	//static int call = 0;
 	if (m_nbIterr < 7)
 	{
 		std::vector<std::vector<Cell>> tmp = m_cells;
