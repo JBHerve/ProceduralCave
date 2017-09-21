@@ -27,9 +27,7 @@ void GraphicManager::update()
 	}
 
 	m_window.clear(sf::Color::White);
-
-	std::vector<sf::RectangleShape> displayedShapes;
-	
+		
 	int i = 0;
 	for (std::vector<Cell> vector : *Manager::getAutomata().getCells())
 	{
@@ -41,17 +39,11 @@ void GraphicManager::update()
 				sf::RectangleShape shape(sf::Vector2f(m_window.getSize().x / size, m_window.getSize().y / size));
 				shape.setPosition(sf::Vector2f(i * m_window.getSize().x / size, j * m_window.getSize().y / size));
 				shape.setFillColor(sf::Color::Black);
-				displayedShapes.push_back(shape);
+				m_window.draw(shape);
 			}
 			++j;
 		}
 		++i;
-	}
-
-
-	for (sf::RectangleShape shape : displayedShapes)
-	{
-		m_window.draw(shape);
 	}
 
 	m_window.display();
