@@ -8,6 +8,8 @@ public:
 	GraphicManager();
 
 	bool windowOpen() const { return m_window.isOpen(); }
+	void closeWindow();
+
 	void update();
 
 private:

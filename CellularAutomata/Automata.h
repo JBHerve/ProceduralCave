@@ -22,5 +22,7 @@ private:
 
 	std::vector<std::vector<Cell>> m_cells;
 	int m_size;
+
+	int m_nbIterr;
 };
 

@@ -15,6 +15,8 @@ public:
 	static void updateGraphic() { m_graphic->update(); }
 	static void updateAutomata() { m_automata->update(); }
 
+	static void closeWindow() { m_graphic->closeWindow(); }
+
 private:
 	static GraphicManager  *m_graphic;
 	static Automata *m_automata;

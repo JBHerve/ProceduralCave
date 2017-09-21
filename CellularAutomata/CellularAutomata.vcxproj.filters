@@ -15,6 +15,9 @@
     <Filter Include="Graphic">
       <UniqueIdentifier>{08ad0bea-d6e8-499a-87e1-08aad6173ad6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{8748908b-c2bf-4587-bb8a-d2a52cb1056f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -29,6 +32,9 @@
     <ClCompile Include="Cell.cpp">
       <Filter>Cellular</Filter>
     </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Automata.h">
@@ -42,6 +48,9 @@
     </ClInclude>
     <ClInclude Include="Manager.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

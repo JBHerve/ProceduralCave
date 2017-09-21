@@ -2,7 +2,7 @@
 #include <ctime>
 
 Automata::Automata(int _size)
-	: m_size(_size)
+	: m_size(_size), m_nbIterr(0)
 {
 	srand(time(0));
 	m_cells = std::vector<std::vector<Cell>>(_size);
@@ -14,15 +14,15 @@ Automata::Automata(int _size)
 
 void Automata::update()
 {
-	static int call = 0;
-	if (call < 7)
+	//static int call = 0;
+	if (m_nbIterr < 7)
 	{
-		++call;
 		std::vector<std::vector<Cell>> tmp = m_cells;
 		for (int i = 0; i < m_size; i++)
 		{
 			for (int j = 0; j < m_size; j++)
 			{
+				//We decrease the max count in order to consider tiles out of bound like walls.
 				int count = 9;
 				for (Cell cell : GetCellsInRange(1, i, j))
 				{
@@ -38,7 +38,7 @@ void Automata::update()
 					tmp[i][j].setState(count != 3);
 				}*/
 
-				if (call < 4 && count < 5)
+				if (m_nbIterr < 4 && count < 5)
 				{
 					count = 25;
 					for (Cell cell : GetCellsInRange(2, i, j))
@@ -56,6 +56,7 @@ void Automata::update()
 				}
 			}
 		}
+		++m_nbIterr;
 		m_cells = tmp;
 	}
 }

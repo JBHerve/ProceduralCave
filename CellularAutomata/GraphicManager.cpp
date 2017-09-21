@@ -1,12 +1,14 @@
 #include "GraphicManager.h"
+
 #include "Manager.h"
+#include "InputManager.h"
 
 
 
 GraphicManager::GraphicManager()
 {
 	m_window.create(sf::VideoMode(500, 500), "Procedural cave");
-	m_window.setFramerateLimit(2);
+	m_window.setFramerateLimit(30);
 
 	int size = Manager::getAutomata().getSize();
 
@@ -23,22 +25,23 @@ GraphicManager::GraphicManager()
 	}
 }
 
+void GraphicManager::closeWindow()
+{
+	m_window.close();
+}
+
 void GraphicManager::update()
 {
+	int size = Manager::getAutomata().getSize();
+
 	sf::Event event;
 	while (m_window.pollEvent(event))
 	{
-		if (event.type == sf::Event::Closed)
-			m_window.close();
-		/*if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
-		}*/
+		InputManager::update(event);
 	}
 
 	m_window.clear();
-
-	int size = Manager::getAutomata().getSize();
-
+	
 	int i = 0;
 	for (std::vector<Cell> vector : *Manager::getAutomata().getCells())
 	{
