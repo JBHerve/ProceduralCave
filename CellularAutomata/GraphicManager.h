@@ -14,6 +14,5 @@ public:
 
 private:
 	sf::RenderWindow m_window;
-	std::vector<sf::RectangleShape> m_shapes;
 };
 

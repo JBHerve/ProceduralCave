@@ -9,20 +9,6 @@ GraphicManager::GraphicManager()
 {
 	m_window.create(sf::VideoMode(500, 500), "Procedural cave");
 	m_window.setFramerateLimit(30);
-
-	int size = Manager::getAutomata().getSize();
-
-	m_shapes = std::vector<sf::RectangleShape>(size * size);
-	for (size_t i = 0; i < size; i++)
-	{
-		for (size_t j = 0; j < size; j++)
-		{
-
-			sf::RectangleShape shape(sf::Vector2f(m_window.getSize().x / size, m_window.getSize().y / size));
-			shape.setPosition(sf::Vector2f(i * m_window.getSize().x / size, j * m_window.getSize().y / size));
-			m_shapes[i * size + j] = shape;
-		}
-	}
 }
 
 void GraphicManager::closeWindow()
@@ -40,7 +26,9 @@ void GraphicManager::update()
 		InputManager::update(event);
 	}
 
-	m_window.clear();
+	m_window.clear(sf::Color::White);
+
+	std::vector<sf::RectangleShape> displayedShapes;
 	
 	int i = 0;
 	for (std::vector<Cell> vector : *Manager::getAutomata().getCells())
@@ -48,13 +36,12 @@ void GraphicManager::update()
 		int j = 0;
 		for (Cell cell : vector)
 		{
-			if (cell.getState())
+			if (!cell.getState())
 			{
-				m_shapes[i * size + j].setFillColor(sf::Color::White);
-			}
-			else
-			{
-				m_shapes[i * size + j].setFillColor(sf::Color::Black);
+				sf::RectangleShape shape(sf::Vector2f(m_window.getSize().x / size, m_window.getSize().y / size));
+				shape.setPosition(sf::Vector2f(i * m_window.getSize().x / size, j * m_window.getSize().y / size));
+				shape.setFillColor(sf::Color::Black);
+				displayedShapes.push_back(shape);
 			}
 			++j;
 		}
@@ -62,7 +49,7 @@ void GraphicManager::update()
 	}
 
 
-	for (sf::RectangleShape shape : m_shapes)
+	for (sf::RectangleShape shape : displayedShapes)
 	{
 		m_window.draw(shape);
 	}
