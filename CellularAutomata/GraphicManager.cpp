@@ -26,26 +26,29 @@ void GraphicManager::update()
 		InputManager::update(event);
 	}
 
-	m_window.clear(sf::Color::White);
-		
-	int i = 0;
-	for (std::vector<Cell> vector : *Manager::getAutomata().getCells())
+	if (Manager::getAutomata().isProcessRunning())
 	{
-		int j = 0;
-		for (Cell cell : vector)
-		{
-			if (!cell.getState())
-			{
-				sf::RectangleShape shape(sf::Vector2f(m_window.getSize().x / size, m_window.getSize().y / size));
-				shape.setPosition(sf::Vector2f(i * m_window.getSize().x / size, j * m_window.getSize().y / size));
-				shape.setFillColor(sf::Color::Black);
-				m_window.draw(shape);
-			}
-			++j;
-		}
-		++i;
-	}
+		m_window.clear(sf::Color::White);
 
-	m_window.display();
+		int i = 0;
+		for (std::vector<Cell> vector : *Manager::getAutomata().getCells())
+		{
+			int j = 0;
+			for (Cell cell : vector)
+			{
+				if (!cell.getState())
+				{
+					sf::RectangleShape shape(sf::Vector2f(m_window.getSize().x / size, m_window.getSize().y / size));
+					shape.setPosition(sf::Vector2f(i * m_window.getSize().x / size, j * m_window.getSize().y / size));
+					shape.setFillColor(sf::Color::Black);
+					m_window.draw(shape);
+				}
+				++j;
+			}
+			++i;
+		}
+
+		m_window.display();
+	}
 
 }

@@ -21,15 +21,8 @@ void Automata::update()
 		{
 			for (int j = 0; j < m_size; j++)
 			{
-				//We decrease the max count in order to consider tiles out of bound like walls.
-				int count = 9;
-				for (Cell cell : GetCellsInRange(1, i, j))
-				{
-					if (cell.getState())
-					{
-						--count;
-					}
-				};
+				//We decrease the max count in order to consider tiles out of bounds like walls.
+				int count = 9 - m_cells[i][j].getState() - GetCellsInRangeState(1, i, j);
 
 				//Game of life
 				/*if (count != 2)
@@ -39,14 +32,7 @@ void Automata::update()
 
 				if (m_nbIterr < 4 && count < 5)
 				{
-					count = 25;
-					for (Cell cell : GetCellsInRange(2, i, j))
-					{
-						if (cell.getState())
-						{
-							--count;
-						}
-					};
+					count += 16 - GetCellsInRangeState(2, i, j);
 					tmp[i][j].setState(count > 1);
 				}
 				else
@@ -60,20 +46,45 @@ void Automata::update()
 	}
 }
 
-std::vector<Cell> Automata::GetCellsInRange(int _range, int _column, int _row)
+int Automata::GetCellsInRangeState(int _range, int _column, int _row) const
 {
-	std::vector<Cell> closeCellular = std::vector<Cell>();
+	int count = 0;
 
 	for (size_t i = _column - _range; i <= _column + _range; i++)
 	{
-		for (size_t j = _row - _range; j <= _row + _range; j++)
+		int j = _row - _range;
+		int k = _row + _range;
+
+		if (i >= 0 && i < m_size)
 		{
-			if (i >= 0 && j >= 0 && i < m_size && j < m_size)
+			if (j >= 0 && j < m_size && m_cells[i][j].getState())
 			{
-				closeCellular.push_back(m_cells[i][j]);
+				++count;
+			}
+			if (k >= 0 && k < m_size &&  m_cells[i][k].getState())
+			{
+				++count;
 			}
 		}
 	}
 
-	return closeCellular;
+	for (size_t i = _row - _range + 1; i < _row + _range; i++)
+	{
+		int j = _column - _range;
+		int k = _column + _range;
+
+		if (i >= 0 && i < m_size)
+		{
+			if (j >= 0 && j < m_size && m_cells[j][i].getState())
+			{
+				++count;
+			}
+			if (k >= 0 && k < m_size && m_cells[k][i].getState())
+			{
+				++count;
+			}
+		}
+	}
+
+	return count;
 }

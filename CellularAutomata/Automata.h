@@ -16,9 +16,11 @@ public:
 
 	int getSize() const { return m_size; }
 
+	bool isProcessRunning() const { return m_nbIterr < 7; }
+
 private:
 
-	std::vector<Cell> GetCellsInRange( int _range, int _column, int _line);
+	int GetCellsInRangeState(int _range, int _column, int _line) const;
 
 	std::vector<std::vector<Cell>> m_cells;
 	int m_size;
