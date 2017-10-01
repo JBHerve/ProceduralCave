@@ -7,7 +7,7 @@ class Manager
 {
 public:
 
-	static void init(int _size) { m_automata = new Automata(_size); }
+	static void init(int _width, int _height) { m_automata = new Automata(_width, _height); }
 
 	static const Automata& getAutomata() { return *m_automata; }
 	static const GraphicManager& getGraphicManager() { if (!m_graphic) { m_graphic = new GraphicManager(); } return *m_graphic; }

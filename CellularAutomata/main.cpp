@@ -8,7 +8,7 @@ int main()
 {
 	sf::Clock Clock;
 
-	Manager::Manager::init(100);
+	Manager::Manager::init(60, 60);
 
 	while (Manager::getGraphicManager().windowOpen())
 	{

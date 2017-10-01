@@ -9,7 +9,6 @@ void InputManager::update(sf::Event _event)
 		Manager::closeWindow();
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		int size = Manager::getAutomata().getSize();
-		Manager::init(size);
+		Manager::init(Manager::getAutomata().getWidth(), Manager::getAutomata().getHeight());
 	}
 }

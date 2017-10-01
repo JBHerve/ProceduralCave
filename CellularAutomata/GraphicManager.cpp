@@ -7,7 +7,10 @@
 
 GraphicManager::GraphicManager()
 {
-	m_window.create(sf::VideoMode(500, 500), "Procedural cave");
+
+	int width = Manager::getAutomata().getWidth();
+	int height = Manager::getAutomata().getHeight();
+	m_window.create(sf::VideoMode(width * 10, height * 10), "Procedural cave");
 	m_window.setFramerateLimit(30);
 }
 
@@ -18,7 +21,8 @@ void GraphicManager::closeWindow()
 
 void GraphicManager::update()
 {
-	int size = Manager::getAutomata().getSize();
+	int width = Manager::getAutomata().getWidth();
+	int height = Manager::getAutomata().getHeight();
 
 	sf::Event event;
 	while (m_window.pollEvent(event))
@@ -38,8 +42,8 @@ void GraphicManager::update()
 			{
 				if (!cell.getState())
 				{
-					sf::RectangleShape shape(sf::Vector2f(m_window.getSize().x / size, m_window.getSize().y / size));
-					shape.setPosition(sf::Vector2f(i * m_window.getSize().x / size, j * m_window.getSize().y / size));
+					sf::RectangleShape shape(sf::Vector2f(m_window.getSize().x / width, m_window.getSize().y / height));
+					shape.setPosition(sf::Vector2f(i * m_window.getSize().x / width, j * m_window.getSize().y / height));
 					shape.setFillColor(sf::Color::Black);
 					m_window.draw(shape);
 				}
