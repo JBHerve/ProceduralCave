@@ -10,6 +10,17 @@ Automata::Automata(int _width, int _height)
 	{
 		m_cells[i] = std::vector<Cell>(_height);
 	}
+
+	for (size_t i = 0; i < m_width; i++)
+	{
+		m_cells[i][0].setState(false);
+		m_cells[i][m_height - 1].setState(false);
+	}
+	for (size_t i = 0; i < m_height; i++)
+	{
+		m_cells[0][i].setState(false);
+		m_cells[m_width - 1][i].setState(false);
+	}
 }
 
 void Automata::update()
@@ -32,10 +43,10 @@ void Automata::update()
 					tmp[i][j].setState(count != 3);
 				}*/
 
-				if (m_nbIterr < 4)
+				if (m_nbIterr < 4 && count < 5)
 				{
-					bool wall = count >= 5 || count + GetCellsInRangeState(2, i, j) <= 1;
-					tmp[i][j].setState(!wall);
+					count += GetCellsInRangeState(2, i, j) ;
+					tmp[i][j].setState(count > 2);
 				}
 				else
 				{
