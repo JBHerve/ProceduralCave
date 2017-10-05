@@ -16,6 +16,8 @@ Note that I didn't add the x64 include (for no particular reasons, I don't think
 Just run the program, and watch the cave appear as the Cellular Automata iterate (12 times, it may takes approximately 12 seconds).
 Whenever you click, it start a new generation with a new seed.
 
+![Alt Text](https://github.com/Zibe/ProceduralCave/Capture.JPG)
+
 ## TODO
 
  - Add the x64 platform.
